@@ -36,12 +36,37 @@
     height: calc(100% - 60px);
 }
 
-h1 h2 h3 h4 {
+#content-wide {
+    position: absolute;
+    width: 800px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#main-action {
+    background-color: #60C1EF;
+}
+
+h1, h2, h3, h4 {
 	font-family: 'GothamMedium';
+    color: #1A1A1A;
 }
 
 p {
 	font-family: 'GothamBook';
+}
+
+button {
+    border: none;
+    height: 35px;
+    color: white;
+    font-family: 'GothamMedium';
+    border-radius: 2px;
+}
+
+input {
+    font-family: 'GothamBook';
 }
 
 .heading-strong {

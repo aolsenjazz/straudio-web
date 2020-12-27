@@ -6,7 +6,7 @@ import LoadingPanel from '../LoadingPanel';
 import RequestPanel from './RequestPanel';
 import ResetPanel from './ResetPanel';
 
-import DefaultContext from '../../DefaultContext';
+import DefaultContext from '../../default-context';
 
 import './forgot-panel.css';
 

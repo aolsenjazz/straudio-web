@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 
-import DefaultContext from '../DefaultContext';
+import DefaultContext from '../default-context';
 
 import Cookies from 'js-cookie';
 

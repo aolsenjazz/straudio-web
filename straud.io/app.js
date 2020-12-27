@@ -15,11 +15,15 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-	res.render('login', { title: 'Straud.io - Login', api: process.env.API });
+	res.render('login', { title: 'Straud.io - Login', api: process.env.API, host: process.env.HOST });
 });
 
 app.get('/forgot', (req, res) => {
-	res.render('forgot', { title: 'Straud.io - Forgot', api: process.env.API });
+	res.render('forgot', { title: 'Straud.io - Forgot', api: process.env.API, host: process.env.HOST });
+});
+
+app.get('/account', (req, res) => {
+	res.render('account', { title: 'Straud.io - Account', api: process.env.API, host: process.env.HOST });
 });
 
 app.listen(process.env.ROOT_PORT, () => {

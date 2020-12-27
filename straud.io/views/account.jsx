@@ -2,15 +2,16 @@ import React from 'react';
 import { Head } from '@react-ssr/express';
 
 import Header from '../components/Header';
-import LoginRegisterPanel from '../components/LoginRegisterPanel';
+import AccountDetailsPanel from '../components/AccountDetailsPanel';
+import useUserStatus from '../hooks/use-user-status';
 
 import DefaultContext from '../default-context';
 import Api from '../api';
 
-import './login.css';
 import './global.css';
+import './account.css';
 
-export default function Login(props) {
+export default function Account(props) {
 	return (
 		<React.Fragment>
 			<Head>
@@ -21,10 +22,12 @@ export default function Login(props) {
 				api: new Api(props.api), 
 				host: props.host,
 			}}>
-				<Header showLogin={false} />
-				<section id="main">
-					<LoginRegisterPanel />
-				</section>
+				<Header showLogin={true} />
+				<div id="main">
+					<section id="content-wide">
+						<AccountDetailsPanel />
+					</section>
+				</div>
 			</DefaultContext.Provider>
 		</React.Fragment>
 	);

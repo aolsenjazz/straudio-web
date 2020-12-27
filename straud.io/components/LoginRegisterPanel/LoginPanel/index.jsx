@@ -2,7 +2,7 @@ import {useState, useContext} from 'react';
 
 import Cookies from 'js-cookie';
 
-import DefaultContext from '../../../DefaultContext';
+import DefaultContext from '../../../default-context';
 
 import './login-panel.css';
 

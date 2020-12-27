@@ -6,13 +6,13 @@
 	position: absolute;
 	transform: translate(0, 100%);
     z-index: 10;
+    background-color: white;
 }
 
 #account-context-menu #main-action {
 	margin: 15px;
     margin-bottom: 10px;
     width: 318px;
-    background-color: #60C1EF;
     border-radius: 2px;
 }
 

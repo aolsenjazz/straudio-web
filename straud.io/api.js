@@ -87,6 +87,21 @@ class Api {
 			});
 		});
 	}
+
+	updateAccount(email, fname, lname, auth) {
+		return new Promise((resolve, reject) => {
+			Axios.put(`${this.endpoint}/users`, {
+				email: email,
+				fname: fname,
+				lname: lname,
+				auth: auth,
+			}).then(response => {
+				resolve(response);
+			}).catch(err => {
+				reject(err.response);
+			});
+		});
+	}
 }
 
 export default Api;

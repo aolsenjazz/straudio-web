@@ -4,7 +4,7 @@ import { Head } from '@react-ssr/express';
 import Header from '../components/Header';
 import ForgotPanel from '../components/ForgotPanel';
 
-import DefaultContext from '../DefaultContext';
+import DefaultContext from '../default-context';
 import Api from '../api';
 
 import './forgot.css';

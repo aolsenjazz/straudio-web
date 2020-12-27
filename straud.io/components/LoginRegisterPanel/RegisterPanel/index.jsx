@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import DefaultContext from '../../../DefaultContext';
+import DefaultContext from '../../../default-context';
 
 import './register-panel.css';
 

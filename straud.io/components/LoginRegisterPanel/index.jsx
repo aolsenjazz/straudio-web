@@ -6,8 +6,8 @@ import LoginPanel from './LoginPanel';
 import RegisterPanel from './RegisterPanel';
 import LogoutPanel from './LogoutPanel';
 
-import DefaultContext from '../../DefaultContext';
-import useUserStatus from '../../hooks/UseUserStatus';
+import DefaultContext from '../../default-context';
+import useUserStatus from '../../hooks/use-user-status';
 
 import './login-register-panel.css';
 

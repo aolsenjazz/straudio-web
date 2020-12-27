@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 
-import DefaultContext from '../../../DefaultContext';
+import DefaultContext from '../../../default-context';
 
 import './reset-panel.css';
 

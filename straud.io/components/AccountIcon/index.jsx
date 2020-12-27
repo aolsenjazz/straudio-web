@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 
 import AccountContextMenu from '../AccountContextMenu';
 
-import useUserStatus from '../../hooks/UseUserStatus';
+import useUserStatus from '../../hooks/use-user-status';
 
 export default function AccountIcon(props) {
 	const [showMenu, setShowMenu] = useState(false);

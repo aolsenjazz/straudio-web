@@ -67,6 +67,31 @@ const MS_IN_DAY = 86400000;
 		});
 	});
 
+	app.put('/users', [
+		check('email').isEmail().normalizeEmail()
+			.withMessage('Please enter a valid email.'),
+		check('fname').isLength({min: 1}).trim()
+			.withMessage('Please enter a first name.'),
+		check('fname').isLength({max: 255}).trim()
+			.withMessage('First name must be less than 255 characters.'),
+		check('lname').isLength({min: 1, max: 255}).trim()
+			.withMessage('Please enter a last name.'),
+		check('auth').isUUID()
+			.withMessage('Please enter a valid auth token.'),
+	], (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(422).json({ errors: errors.array() });
+		}
+
+		db.getUser(req.body.auth)
+			.then((user) => db.updateUser(user.id, req.body.email, user.password, req.body.fname, req.body.lname, user.auth))
+			.then((id) => res.json('success'))
+			.catch((err) => {
+				res.status(401).json(error('Email is already in use.', 'body'));
+			});
+	});
+
 	app.post('/login', [
 		check('email').isEmail().normalizeEmail()
 			.withMessage('Please enter a valid email.'),	

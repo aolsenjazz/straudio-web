@@ -1,0 +1,50 @@
+#account-details-panel {
+
+}
+
+#account-details-panel #main-action {
+	float: right;
+	margin-top: 15px;
+}
+
+#account-details-panel .header {
+	color: #666666;
+	width: 30%;
+}
+
+#account-details-panel .error {
+	height: 50px;
+	line-height: 50px;
+}
+
+#account-details-panel #details {
+	background-color: #F2F2F2;
+    padding: 20px;
+    border-radius: 2px;
+}
+
+#account-details-panel .details-row {
+	height: 60px;
+	border-bottom: 1px solid #E6E6E6;
+	position: relative;
+}
+
+#account-details-panel .details-row p {
+	display: inline-block;
+	float: left;
+	line-height: 60px;
+}
+
+#account-details-panel .details-row:last-of-type {
+	border-bottom: none;
+}
+
+#account-details-panel .details-row .loading-block {
+	margin-top: 12px;
+	float: left;
+	display: inline-block;
+}
+
+#account-details-panel .details-row .loading-block:first-of-type {
+	margin-right: 10%;
+}
