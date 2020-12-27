@@ -31,7 +31,6 @@ const MS_IN_DAY = 86400000;
 
 	app.get('/', (req, res) => {
 		res.send('welcome to the API! gtfo');
-		mailer.sendPasswordReset('aolsenjazz@gmail.com');
 	});
 
 	app.post('/users', [
