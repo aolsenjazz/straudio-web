@@ -1,0 +1,15 @@
+{
+  "name": "pcm_downloader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "blob.js": "^1.0.1",
+    "file-saver": "^2.0.2"
+  }
+}

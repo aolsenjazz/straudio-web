@@ -1,0 +1,11 @@
+{
+  "name": "pcm_generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "pcm-generator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,13 @@
+#logout-panel #profile-details {
+	padding-bottom: 7px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+#logout-panel .heading-strong {
+	margin-bottom: 10px;
+}
+
+#logout-panel p {
+	margin-bottom: 8px;
+}

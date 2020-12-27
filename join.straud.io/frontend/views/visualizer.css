@@ -1,0 +1,47 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: rgb(236,140,0);
+	background: linear-gradient(90deg, rgba(236,140,0,1) 0%, rgba(236,208,0,1) 100%);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+h1 {
+	color: white;
+	margin: 20px;
+}
+
+#react-ssr-root {
+	height: 100vh;
+}
+
+#canvas {
+	width: calc(100% - 400px);
+	position: absolute;
+	top: 50%;
+	margin-top: -100px;
+	height: 200px;
+	left: 200px;
+}
+
+#button-container {
+	position: absolute;
+	width: 100px;
+	height: 300px;
+	left: 50vw;
+	bottom: 50vh;
+	margin-left: -50px;
+	margin-bottom: -250px;
+}
+
+#button-container button {
+	float: left;
+	width: 100%;
+	margin-bottom: 10px;
+	background-color: red;
+	height: 40px;
+}

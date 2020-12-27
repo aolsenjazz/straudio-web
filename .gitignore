@@ -1,0 +1,15 @@
+.DS_Store
+**/.DS_Store
+node_modules/
+join.straud.io/ssr.config.js
+join.straud.io/.ssr
+
+# CONFIG FILES CONTAIN AUTH INFO
+join.straud.io/tests/e2e/ecosystem.config.js
+straud.io/ecosystem.config.js
+join.straud.io/signal-server/ecosystem.config.js
+join.straud.io/frontend/ecosystem.config.js
+api.straud.io/ecosystem.config.js
+
+# API TESTS
+api.straud.io/tests

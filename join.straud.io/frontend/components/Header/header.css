@@ -1,0 +1,18 @@
+header {
+	height: 60px;
+	width: 100vw;
+	position: absolute;
+	top: 0px;
+}
+
+header h1, h2, h3 {
+	color: white;
+	font-family: Arial;
+}
+
+header h1 {
+	left: 20px;
+	top: 20px;
+	position: relative;
+	float: left;
+}

@@ -1,0 +1,33 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: rgb(236,140,0);
+	background: linear-gradient(90deg, rgba(236,140,0,1) 0%, rgba(236,208,0,1) 100%);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+#react-ssr-root {
+	height: 100vh;
+}
+
+#button-container {
+	position: absolute;
+	width: 100px;
+	height: 300px;
+	left: 50vw;
+	bottom: 50vh;
+	margin-left: -50px;
+	margin-bottom: -250px;
+}
+
+#button-container button {
+	float: left;
+	width: 100%;
+	margin-bottom: 10px;
+	background-color: red;
+	height: 40px;
+}

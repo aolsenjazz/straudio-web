@@ -1,0 +1,61 @@
+#terminated-view {
+	position: absolute;
+	left: 50%;
+	margin-left: -250px;
+	width: 500px;
+	top: 50%;
+	margin-top: 50px;
+	height: 100px;
+	margin-top: -50px;
+	max-width: 100vw;
+}
+
+#terminated-view h3 {
+	font-size: 3em;
+	font-family: Arial;
+}
+
+#terminated-view button {
+	color: #607D8B;
+	background: white;
+	font-family: Arial;
+	width: 120px;
+	margin-top: 20px;
+	border: none;
+	border-radius: 2px;
+	height:40px;
+	font-weight: bold;
+	cursor: pointer;
+	opacity: 0.9;
+}
+
+#terminated-view button:hover {
+	opacity: 1.0;
+}
+
+#terminated-view #back-home {
+
+}
+
+#terminated-view #rejoin {
+	float:right;
+}
+
+@media only screen and (max-width: 600px) {
+	#terminated-view {
+		margin-left: 0;
+		left: 0;
+		top: 40%;
+		margin: 20px;
+	}
+
+	#terminated-view h3 {
+		font-size: 2em;
+		width: calc(100% - 40px);
+		font-family: Arial;
+	}
+
+	#terminated-view button {
+		width: calc(100% - 40px);
+	}
+}

@@ -1,0 +1,58 @@
+#join-panel {
+	position: absolute;
+	
+	width: 300px;
+	left: 50%;
+	margin-left: -150px;
+	top: 50%;
+	margin-top: -50px;
+}
+
+#join-panel input {
+	width: calc(100% - 20px);
+	padding:10px;
+	font-family: Arial;
+	opacity: 0.8;
+	border-radius: 6px;
+	border: 0;
+	font-size: 18px;
+}
+
+#join-panel input:focus {
+	outline: none;
+	opacity: 0.9;
+}
+
+#join-panel button {
+	width: 100%;
+	color:white;
+	background: rgba(255,255,255, 0.3);
+	box-shadow: none;
+	outline: none !important;
+	cursor: pointer;
+	border-radius: 6px;
+	border: 0;
+	height: 40px;
+}
+
+#join-panel #room-id {
+	margin-bottom: 8px;
+}
+
+#join-panel #display-name {
+	margin-bottom: 8px;
+}
+
+#join-panel button:hover {
+	outline:none;
+	box-shadow: none;
+	background: rgba(255,255,255, 0.5);
+}
+
+#join-panel .error {
+	color:red;
+	font-family: Arial;
+	margin-top: 10px;
+	opacity: 0.8;
+	text-align: center;
+}

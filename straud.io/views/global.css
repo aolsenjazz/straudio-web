@@ -1,0 +1,65 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+@font-face {
+	font-family: 'GothamMedium';
+	src: url('/fonts/GothamMedium.ttf');
+}
+
+@font-face {
+	font-family: 'GothamBook';
+	src: url('/fonts/GothamBook.ttf');
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.6;
+    }
+}
+
+#react-ssr-root {
+	height: 100vh;
+}
+
+#main {
+    position: relative;
+    height: calc(100% - 60px);
+}
+
+h1 h2 h3 h4 {
+	font-family: 'GothamMedium';
+}
+
+p {
+	font-family: 'GothamBook';
+}
+
+.heading-strong {
+    font-family: 'GothamMedium';
+    font-size: large;
+}
+
+.sub-heading {
+    color: #4D4D4D;
+    font-size: small;
+}
+
+.error {
+	color: #F44336;
+}
+
+.loading-block {
+    animation-name: flicker;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
