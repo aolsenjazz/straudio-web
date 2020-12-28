@@ -1,12 +1,23 @@
 const express = require('express');
-const HttpServer = require('./http-server');
+const logger = require('../logger')('HttpServer');
+const register = require('@react-ssr/express/register');
 
-let httpServer = new HttpServer({
-	useTls: process.env.USE_TLS === 'true',
-	host: process.env.HOST,
-	signalPort: process.env.SIGNAL_PORT,
-	httpPort: process.env.JOIN_PORT,
-	analyticsPort: process.env.ANALYTICS_PORT,
+logger.info('Starting http server...')
+
+let app = express();
+
+app.use(express.static('./public'));
+
+register(app);
+
+app.get('/', (req, res) => {
+	res.render('index', { 
+		host: process.env.HOST, 
+		signalUrl: process.env.SIGNAL_URL, 
+		apiUrl: process.env.API_URL
+	});
 });
 
-httpServer.start();
+app.listen(process.env.PORT, () => {
+	logger.info(`http server running on port ${process.env.PORT}`);
+});

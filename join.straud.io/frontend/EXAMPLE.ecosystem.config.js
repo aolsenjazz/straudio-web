@@ -5,19 +5,10 @@ module.exports = {
 			script: 'app.js',
 			watch: true,
 			env: {
-				USE_TLS: false,
+				HOST: 'localhost',
+				PORT: 3000,
 
-				DB_HOST: 'sample.host',
-				DB_PORT: 3306,
-				DB_USER: 'sample.user',
-				DB_PASS: 'sample.pass',
-				DB_NAME: 'sample.name',
-
-				HOST: '127.0.0.1',
-
-				SIGNAL_PORT: 4443,
-				JOIN_PORT: 3000,
-				ROOT_PORT: 3001,
+				SIGNAL_URL: 'ws://localhost:4443',
 
 				DEBUG: 'straudio:*',
 			}

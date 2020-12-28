@@ -1,11 +1,11 @@
 import React from 'react';
 import { Head } from '@react-ssr/express';
 
-import Header from '../components/Header';
-import ForgotPanel from '../components/ForgotPanel';
+import Header from '@Components/Header';
+import ForgotPanel from '@Components/ForgotPanel';
 
-import DefaultContext from '../default-context';
-import Api from '../api';
+import DefaultContext from '@Root/default-context';
+import Api from '@Services/api';
 
 import './forgot.css';
 import './global.css';

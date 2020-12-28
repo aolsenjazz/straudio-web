@@ -1,12 +1,12 @@
 import React from 'react';
 import { Head } from '@react-ssr/express';
 
-import Header from '../components/Header';
-import AccountDetailsPanel from '../components/AccountDetailsPanel';
-import useUserStatus from '../hooks/use-user-status';
+import Header from '@Components/Header';
+import AccountDetailsPanel from '@Components/AccountDetailsPanel';
+import useUserStatus from '@Hooks/use-user-status';
 
-import DefaultContext from '../default-context';
-import Api from '../api';
+import DefaultContext from '@Root/default-context';
+import Api from '@Services/api';
 
 import './global.css';
 import './account.css';

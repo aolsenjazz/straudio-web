@@ -1,6 +1,0 @@
-{
-  "presets": [
-    "@react-ssr/express/babel"
-  ]
-}
-

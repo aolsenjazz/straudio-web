@@ -1,5 +1,5 @@
 const express = require('express');
-const logger = require('./logger')('HttpServer');
+const logger = require('./logger')('Straud.io');
 const register = require('@react-ssr/express/register');
 
 logger.info('starting http server...')
