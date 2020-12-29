@@ -65,6 +65,18 @@ class AudioBackend {
 	getNStarved() {
 		throw Error('getNStarved must be implemented!');
 	}
+
+	subscribeToSilence() {
+		throw Error('subscribeToSilence must be implemented!');
+	}
+
+	unsubscribeFromSilence() {
+		throw Error('unsubscribeFromSilence must be implemented!');
+	}
+
+	notifySilence() {
+		throw Error('notifySilence must be implemented!');
+	}
 }
 
 export {

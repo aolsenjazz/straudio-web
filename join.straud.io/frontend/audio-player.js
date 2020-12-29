@@ -51,13 +51,13 @@ class AudioPlayer {
 	initBackend() {
 		let Backend, useMessageChannel;
 
-		// if (window.AudioWorklet != undefined) {
-		// 	useMessageChannel = true;
-		// 	Backend = WorkletBackend;
-		// } else {
+		if (window.AudioWorklet != undefined) {
+			useMessageChannel = true;
+			Backend = WorkletBackend;
+		} else {
 			useMessageChannel = false;
 			Backend = ScriptProcessorBackend;
-		// }
+		}
 
 		this.backend = new Backend(
 			this.audioContext, 
@@ -75,6 +75,14 @@ class AudioPlayer {
 
 	dataReceived(arrayBuffer) {
 		this.processor.processBlock(arrayBuffer);
+	}
+
+	subscribeToSilence(cb) {
+		return this.backend.subscribeToSilence(cb);
+	}
+
+	unsubscribeFromSilence(id) {
+		this.backend.unsubscribeFromSilence(id);
 	}
 
 	// TODO:

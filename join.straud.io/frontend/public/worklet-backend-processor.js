@@ -15,6 +15,7 @@ class WorkletProcessor extends AudioWorkletProcessor {
 
 		this.port.onmessage = this.onMessage.bind(this);
 
+		this.silentCount = 0;
 		this.state = State.READY;
 		this.nStarved = 0;
 		this.nMessagesReceived = 0;
@@ -32,6 +33,7 @@ class WorkletProcessor extends AudioWorkletProcessor {
 		} else if (this.state == State.STARVED && nReadableSamples < PREFILL_SIZE) {
 			this.nStarved++;
 			writeSilence(outputs[0]);
+			this.checkSilence(outputs);
 			return true; // starved and doesn't have enough data. silence.
 		} else if (this.state == State.PLAYING && nReadableSamples == 0) {
 			this.nStarved++;
@@ -43,26 +45,40 @@ class WorkletProcessor extends AudioWorkletProcessor {
 			outputs[0][channelNum].set(channelData[channelNum]);
 		}
 
+		this.checkSilence(outputs);
+
 		return true;
 	}
 
 	onMessage(e) {
 		if (e.data.command == 'feed') {
-			// if (this.durationBuffered >= 0.5) return;
-
 			let interleaved = e.data.data;
 			let channels = copyInterleavedToChannels(interleaved, this.nChannels);
 			this.buffer.write(channels);
 
-			// occasionally report analytics data;
 			this.nMessagesReceived++;
-			if (this.nMessagesReceived % 100 == 0) {
-				this.port.postMessage({nStarved: this.nStarved, nSamplesBuffered: this.buffer.getNReadableSamples()});
-			}
 		} else if (e.data.command == 'connect') {
 			e.ports[0].onmessage = this.onMessage.bind(this);
 		} else {
 			throw Error('command not specified');
+		}
+	}
+
+	notifySilence() {
+		let silent = this.silentCount >= 300;
+			
+		this.port.postMessage({command: 'reportSilence', silent: silent});
+	}
+
+	checkSilence(outs) {
+		if (outs[0][0][0] === 0) {
+			if (this.silentCount === 300) this.notifySilence();
+			this.silentCount++;
+		} else {
+			if (this.silentCount >= 300) {
+				this.silentCount = 0;
+				this.notifySilence();
+			}
 		}
 	}
 }

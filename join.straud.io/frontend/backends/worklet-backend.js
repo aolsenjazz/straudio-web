@@ -4,6 +4,9 @@ class WorkletBackend extends AudioBackend {
 	constructor(context, output, bufferSize, port) {
 		super();
 
+		this.silent = undefined;
+		this.silenceSubscriptions = new Map();
+
 		// define this here so that window is accessible
 		class WorkletNode extends AudioWorkletNode {
 			constructor(context) {
@@ -29,8 +32,10 @@ class WorkletBackend extends AudioBackend {
 	}
 
 	messageFromProcessor(e) {
-		this.nStarved = e.data.nStarved;
-		this.nSamplesBuffered = e.data.nSamplesBuffered;
+		if (e.data.command === 'reportSilence') {
+			this.silent = e.data.silent;
+			this.notifySilence();
+		}
 	}
 
 	name() {
@@ -47,6 +52,25 @@ class WorkletBackend extends AudioBackend {
 
 	getNStarved() {
 		return this.nStarved;
+	}
+
+	subscribeToSilence(cb) {
+		let id = Math.random().toString(36).substring(7); // random string
+		
+		this.silenceSubscriptions.set(id, cb);
+		this.notifySilence();
+
+		return id;
+	}
+
+	unsubscribeFromSilence(id) {
+		this.silenceSubscriptions.delete(id);
+	}
+
+	notifySilence() {
+		this.silenceSubscriptions.forEach((value, key, map) => {
+			value(this.silent);
+		});
 	}
 }
 
