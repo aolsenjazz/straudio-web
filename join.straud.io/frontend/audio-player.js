@@ -21,6 +21,10 @@ class AudioPlayer {
 		this.analyserNode.fftSize = 8192;
 		this.analyserNode.connect(this.audioContext.destination);
 
+		// init gain node
+		this.gainNode = this.audioContext.createGain();
+		this.gainNode.connect(this.analyserNode);
+
 		// important info for analytics
 		this.inputSampleRate = sampleRate;
 		this.outputSampleRate = this.audioContext.sampleRate;
@@ -61,7 +65,7 @@ class AudioPlayer {
 
 		this.backend = new Backend(
 			this.audioContext, 
-			this.analyserNode, 
+			this.gainNode, 
 			2048, 
 			this.channel.port2
 		);
@@ -83,6 +87,10 @@ class AudioPlayer {
 
 	unsubscribeFromSilence(id) {
 		this.backend.unsubscribeFromSilence(id);
+	}
+
+	setGain(gain) {
+		this.gainNode.gain.setValueAtTime(gain, this.audioContext.currentTime);
 	}
 
 	// TODO:
