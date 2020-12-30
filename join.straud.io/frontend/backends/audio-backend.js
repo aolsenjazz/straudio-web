@@ -38,7 +38,7 @@ function copyInterleavedToChannels(interleavedData) {
 }
 
 class AudioBackend {
-	constructor(ringBufferSize=32768) {
+	constructor(ringBufferSize=192000) {
 		if (new.target === AudioBackend) {
 			throw new TypeError('Can\'t construct AudioBackend directly!');
 		}

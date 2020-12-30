@@ -1,14 +1,13 @@
 import { AudioBackend, State, copyInterleavedToChannels, writeSilence } from './audio-backend.js';
 
-const PREFILL_SIZE = 4096;
+const SILENCE_THRESHOLD = 30; // 30 reads of silent buffers (2048 samples each, probably) = "silence"
 
 class ScriptProcessorBackend extends AudioBackend {
-	constructor(context, output, bufferSize) {
+	constructor(context, output, bufferSize, prefillSize) {
 		super();
 
 		this.playNext = this.playNext.bind(this);
 
-		this.silentCount = 0;
 		this.silenceSubscriptions = new Map();
 
 		let processor = context.createScriptProcessor(bufferSize, 0, 2);
@@ -19,7 +18,9 @@ class ScriptProcessorBackend extends AudioBackend {
 		this.state = State.READY;
 		this.bufferSize = bufferSize;
 		this.sampleRate = context.sampleRate;
+		this.prefillSize = prefillSize;
 
+		this.silentCount = 0;
 		this.nStarved = 0;
 		this.nBufferUnderread = 0;
 		this.nSamplesRead = 0;
@@ -32,6 +33,16 @@ class ScriptProcessorBackend extends AudioBackend {
 
 	name() {
 		return 'ScriptProcessorBackend';
+	}
+
+	setPrefillSize(prefillSize) {
+		let shouldTrim = prefillSize < this.prefillSize;
+
+		this.prefillSize = prefillSize;
+		
+		if (shouldTrim) {
+			this._buffer.advanceReadPosition(this._buffer.getNReadableSamples() - prefillSize);
+		}
 	}
 
 	getBufferSize() {
@@ -65,7 +76,7 @@ class ScriptProcessorBackend extends AudioBackend {
 
 	notifySilence() {
 		this.silenceSubscriptions.forEach((value, key, map) => {
-			value(this.silentCount >= 10);
+			value(this.silentCount >= SILENCE_THRESHOLD);
 		});
 	}
 
@@ -74,12 +85,12 @@ class ScriptProcessorBackend extends AudioBackend {
 		let nReadableSamples = this._buffer.getNReadableSamples();
 		this.checkSilence(outs);
 
-		if (this.state == State.READY && nReadableSamples < PREFILL_SIZE) {
+		if (this.state != State.STARVED && nReadableSamples < this.prefillSize) {
 			return; // prefilling
-		} else if (this.state != State.PLAYING && nReadableSamples >= PREFILL_SIZE) {
+		} else if (this.state != State.PLAYING && nReadableSamples >= this.prefillSize) {
 			this.underreadCheckpoint = Date.now();
 			this.state = State.PLAYING; // prefill is filled. start playing
-		} else if (this.state == State.STARVED && nReadableSamples < PREFILL_SIZE) {
+		} else if (this.state == State.STARVED && nReadableSamples < this.prefillSize) {
 			this.nStarved++;
 			writeSilence(outs);
 			return; // starved and doesn't have enough data. silence.
@@ -95,10 +106,10 @@ class ScriptProcessorBackend extends AudioBackend {
 
 	checkSilence(outs) {
 		if (outs[0][0] === 0) {
-			if (this.silentCount === 10) this.notifySilence();
+			if (this.silentCount === SILENCE_THRESHOLD) this.notifySilence();
 			this.silentCount++;
 		} else {
-			if (this.silentCount >= 10) {
+			if (this.silentCount >= SILENCE_THRESHOLD) {
 				this.silentCount = 0;
 				this.notifySilence();
 			}

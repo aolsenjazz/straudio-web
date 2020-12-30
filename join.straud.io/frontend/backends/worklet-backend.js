@@ -1,7 +1,7 @@
 import { AudioBackend, State } from './audio-backend.js';
 
 class WorkletBackend extends AudioBackend {
-	constructor(context, output, bufferSize, port) {
+	constructor(context, output, port, prefillSize) {
 		super();
 
 		this.silent = undefined;
@@ -24,6 +24,7 @@ class WorkletBackend extends AudioBackend {
 			this.audioNode.port.onmessage = this.messageFromProcessor.bind(this);
 
 			if (port) this.audioNode.port.postMessage({command: 'connect'}, [port]);
+			this.setPrefillSize(prefillSize);
 		});
 	}
 
@@ -36,6 +37,10 @@ class WorkletBackend extends AudioBackend {
 			this.silent = e.data.silent;
 			this.notifySilence();
 		}
+	}
+
+	setPrefillSize(prefillSize) {
+		this.audioNode.port.postMessage({command: 'prefillSize', prefillSize: prefillSize});
 	}
 
 	name() {

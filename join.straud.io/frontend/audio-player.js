@@ -53,24 +53,17 @@ class AudioPlayer {
 	}
 
 	initBackend() {
-		let Backend, useMessageChannel;
+		let backend, useMessageChannel;
 
 		if (window.AudioWorklet != undefined) {
 			useMessageChannel = true;
-			Backend = WorkletBackend;
+			this.backend = new WorkletBackend(this.audioContext, this.gainNode, this.channel.port2, this.outputSampleRate / 2);
 		} else {
 			useMessageChannel = false;
-			Backend = ScriptProcessorBackend;
+			this.backend = new ScriptProcessorBackend(this.audioContext, this.gainNode, 2048, this.outputSampleRate / 2);
 		}
 
-		this.backend = new Backend(
-			this.audioContext, 
-			this.gainNode, 
-			2048, 
-			this.channel.port2
-		);
-
-		return useMessageChannel
+		return useMessageChannel;
 	}
 
 	onProcessed(interleavedFloat32Data) {
@@ -95,7 +88,13 @@ class AudioPlayer {
 
 	setMono(mono) {
 		this.processor.setMono(mono);
+	}
 
+	// 0 < fractional < 1. determines how long preload buffer should be (0-1 second)
+	setPrefillSize(fractional) {
+		let bufferSize = this.backend.getBufferSize();
+		let preloadSize = Math.max(bufferSize, fractional * this.outputSampleRate)
+		this.backend.setPrefillSize(preloadSize);
 	}
 
 	// TODO:

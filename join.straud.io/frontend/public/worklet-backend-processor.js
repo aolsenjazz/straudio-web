@@ -15,22 +15,23 @@ class WorkletProcessor extends AudioWorkletProcessor {
 
 		this.port.onmessage = this.onMessage.bind(this);
 
+		this.prefillSize = 22050;
 		this.silentCount = 0;
 		this.state = State.READY;
 		this.nStarved = 0;
 		this.nMessagesReceived = 0;
 
-		this.buffer = new RingBuffer(32768, N_CHANNELS);
+		this.buffer = new RingBuffer(192000, N_CHANNELS);
 	}
 
 	process(inputs, outputs, parameters) {
 		let nReadableSamples = this.buffer.getNReadableSamples();
 
-		if (this.state == State.READY && nReadableSamples < PREFILL_SIZE) {
+		if (this.state !== State.STARVED && nReadableSamples < this.prefillSize) {
 			return true; // prefilling
-		} else if (this.state != State.PLAYING && nReadableSamples >= PREFILL_SIZE) {
+		} else if (this.state != State.PLAYING && nReadableSamples >= this.prefillSize) {
 			this.state = State.PLAYING; // prefill is filled. start playing
-		} else if (this.state == State.STARVED && nReadableSamples < PREFILL_SIZE) {
+		} else if (this.state == State.STARVED && nReadableSamples < this.prefillSize) {
 			this.nStarved++;
 			writeSilence(outputs[0]);
 			this.checkSilence(outputs);
@@ -59,8 +60,20 @@ class WorkletProcessor extends AudioWorkletProcessor {
 			this.nMessagesReceived++;
 		} else if (e.data.command == 'connect') {
 			e.ports[0].onmessage = this.onMessage.bind(this);
+		} else if (e.data.command === 'prefillSize') {
+			this.setPrefillSize(e.data.prefillSize);
 		} else {
 			throw Error('command not specified');
+		}
+	}
+
+	setPrefillSize(prefillSize) {
+		let shouldTrim = prefillSize < this.prefillSize;
+
+		this.prefillSize = prefillSize;
+		
+		if (shouldTrim) {
+			this.buffer.advanceReadPosition(this.buffer.getNReadableSamples() - prefillSize);
 		}
 	}
 
