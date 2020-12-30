@@ -93,11 +93,16 @@ class AudioPlayer {
 		this.gainNode.gain.setValueAtTime(gain, this.audioContext.currentTime);
 	}
 
+	setMono(mono) {
+		this.processor.setMono(mono);
+
+	}
+
 	// TODO:
 	stop() {}
 
 	getAnalytics() {
-		if (this.backend === undefined && this.proceessor === undefined) return {};
+		if (this.backend === undefined && this.processor === undefined) return {};
 		
 		let analytics = {
 			inputSampleRate: this.inputSampleRate,

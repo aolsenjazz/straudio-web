@@ -2,6 +2,7 @@ let init = false;
 let inputSampleRate;
 let outputSampleRate;
 let backendPort = undefined;
+let mono = false;
 
 let _resampleFractional = 0;
 let _resampleLastSampleData = undefined;
@@ -18,7 +19,22 @@ onmessage = function(e) {
 			let msg = new AudioMessage(e.data.data);
 			let channels = copyInterleavedToChannels(msg.getAudioAsFloat32());
 			let resampled = resample(channels);
-			let interleaved = copyChannelsToInterleaved(resampled);
+
+			let interleaved;
+			if (mono) {
+				// "interleavedDualMono" means that it's dual mono in an "interleaved" format :)
+				let interleavedDualMono = new Float32Array(resampled[0].length * 2);		
+				let resampledPos = 0;
+				for (let i = 0; i < interleavedDualMono.length; i += 2) {
+					interleavedDualMono[i] = (resampled[0][resampledPos] + resampled[1][resampledPos]) * .5;
+					interleavedDualMono[i + 1] = (resampled[0][resampledPos] + resampled[1][resampledPos]) * .5;
+
+					resampledPos++;
+				}
+				interleaved = interleavedDualMono;
+			} else {
+				interleaved = copyChannelsToInterleaved(resampled);
+			}
 
 			if (backendPort == undefined) {
 				postMessage(interleaved, [interleaved.buffer]);
@@ -26,8 +42,10 @@ onmessage = function(e) {
 				backendPort.postMessage({command: 'feed', data: interleaved}, [interleaved.buffer]);
 			}
 		}
-	} else if (e.data.command == 'connect') {
+	} else if (e.data.command === 'connect') {
 		backendPort = e.ports[0];
+	} else if (e.data.command === 'mono') {
+		mono = e.data.mono;
 	} else {
 		throw 'received unrecognied command';
 	}

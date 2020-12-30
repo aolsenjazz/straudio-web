@@ -27,6 +27,10 @@ class WorkerProcessor extends AudioProcessor {
 		return 'WorkerProcessor';
 	}
 
+	setMono(mono) {
+		this.worker.postMessage({command: 'mono', mono: mono});
+	}
+
 	_process(data) {
 		let channels = this._copyInterleavedToChannels(data);
 		return this._resample(data);
