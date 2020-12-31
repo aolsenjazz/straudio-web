@@ -1,6 +1,7 @@
 import React from 'react';
 import { Head } from '@react-ssr/express';
 
+import Favicon from 'react-favicon';
 import Header from '@Components/Header';
 import AccountDetailsPanel from '@Components/AccountDetailsPanel';
 import useUserStatus from '@Hooks/use-user-status';
@@ -15,8 +16,10 @@ export default function Account(props) {
 	return (
 		<React.Fragment>
 			<Head>
-				<title>{props.title}</title>
+				<title>Straudio - Account</title>
 			</Head>
+
+			<Favicon url="images/icon.ico" />
 
 			<DefaultContext.Provider value={{
 				api: new Api(props.api), 

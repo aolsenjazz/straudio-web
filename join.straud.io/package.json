@@ -34,6 +34,7 @@
     "randomstring": "^1.1.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-favicon": "0.0.18",
     "react-flip-move": "^3.0.4",
     "react-rangeslider": "^2.2.0",
     "react-svg": "^11.0.28",

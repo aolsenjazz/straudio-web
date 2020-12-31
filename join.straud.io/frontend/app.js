@@ -14,7 +14,8 @@ app.get('/', (req, res) => {
 	res.render('index', { 
 		host: process.env.HOST, 
 		signalUrl: process.env.SIGNAL_URL, 
-		apiUrl: process.env.API_URL
+		apiUrl: process.env.API_URL,
+		debug: process.env.DEBUG,
 	});
 });
 

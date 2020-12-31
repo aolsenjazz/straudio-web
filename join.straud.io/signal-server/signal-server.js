@@ -324,7 +324,7 @@ class SignalServer {
 	newRoomId() {
 		let roomId;
 		while (!roomId || roomId in this._rooms.keys()) {
-			roomId = randomstring.generate({length: 4, capitalization: 'uppercase', readable: true, charset: 'alphabetic'});
+			roomId = randomstring.generate({length: 4, capitalization: 'uppercase', readable: true, charset:'alphabetic'});
 		}
 		return roomId;
 	}
