@@ -1,5 +1,5 @@
-import RingBuffer from '../ring-buffer.js';
-import { State, writeSilence, copyInterleavedToChannels } from '../backends/audio-backend.js';
+import RingBuffer from '../straudio-shared/player/ring-buffer.js';
+import { State, writeSilence, copyInterleavedToChannels } from '../straudio-shared/player/backends/audio-backend.js';
 
 const DTYPE_INT16 = 0;
 const DTYPE_FLOAT32 = 1;

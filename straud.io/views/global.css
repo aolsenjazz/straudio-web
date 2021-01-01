@@ -34,11 +34,22 @@
 #main {
     position: relative;
     height: calc(100% - 60px);
+    text-align: center;
 }
 
-#content-wide {
+.content-wide {
     position: absolute;
-    width: 800px;
+    max-width: 800px;
+    width: 90%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.content-medium {
+    position: absolute;
+    max-width: 500px;
+    width: 90%;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -63,6 +74,7 @@ button {
     color: white;
     font-family: 'GothamMedium';
     border-radius: 2px;
+    background-color: #60C1EF;
 }
 
 input {
@@ -80,7 +92,7 @@ input {
 }
 
 .error {
-	color: #F44336;
+	color: #F44336 !important;
 }
 
 .loading-block {

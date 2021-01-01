@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('./logger')('ApiServer');
+const fs = require('fs');
+const WaveFile = require('wavefile').WaveFile;
 
 const { check, validationResult } = require('express-validator');
 const { v4: uuidv4 } = require('uuid');
@@ -11,6 +13,10 @@ const Db = require('./db');
 const Mailer = require('./mail-service');
 
 const MS_IN_DAY = 86400000;
+
+const wavBuffer = fs.readFileSync('./demo.wav', null);
+let wavFile = new WaveFile(wavBuffer);
+let demoSamples = wavFile.getSamples(true, Int16Array);
 
 (async function() {
 	logger.info('starting api server...')
@@ -210,6 +216,16 @@ const MS_IN_DAY = 86400000;
 				});
 		});
 
+	});
+
+	app.get('/demo', (req, res) => {
+		let bytesPerInt16 = 2;
+		let nChannels = 2;
+		let offsetIndex = 0 | req.query.offset;
+		let offset = offsetIndex * (44100 * nChannels * bytesPerInt16 / 10);
+		let chunk = demoSamples.buffer.slice(offset, offset + (44100 * nChannels * bytesPerInt16 / 10));
+		let int16 = new Int16Array(chunk);
+		res.send(Buffer.from(chunk, 'binary'))
 	});
 
 	app.listen(process.env.API_PORT, () => {

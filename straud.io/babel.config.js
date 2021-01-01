@@ -9,6 +9,7 @@ module.exports = function (api) {
     	"@Hooks": path.resolve("./straudio-shared/hooks"),
     	"@Services": path.resolve("./straudio-shared/services"),
     	"@Root": path.resolve("./"),
+        "@Player": path.resolve("./straudio-shared/player"),
     }}]];
 
     return {
