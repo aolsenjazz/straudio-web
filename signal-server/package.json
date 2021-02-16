@@ -1,0 +1,16 @@
+{
+  "name": "@alexanderolsen/straudio-signal-server",
+  "version": "0.1.0",
+  "description": "Signalling server for connecting WebRTC peers.",
+  "main": "app.js",
+  "scripts": {
+    "start": "pm2 start ecosystem.config.js",
+    "restart": "pm2 delete straudio-signal-server && pm2 start ecosystem.config.js"
+  },
+  "author": "Alexander Olsen",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "randomstring": "^1.1.5"
+  }
+}
